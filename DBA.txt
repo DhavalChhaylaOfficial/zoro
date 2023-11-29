@@ -1,0 +1,112 @@
+--Display all information of all account holder
+SELECT * FROM ACCOUNT
+
+--Display Name and Birth Date of all account holders.
+SELECT Acc_name,Acc_dob FROM ACCOUNT
+
+--Display Name and Balance of all account holders.
+SELECT Acc_name,Acc_balance FROM ACCOUNT
+
+--Display Name and Balance of current account holder
+SELECT Acc_name,Acc_balance FROM ACCOUNT WHERE Acc_status='O'
+
+--Display all information of Close account holder in ascending order of Name
+SELECT * FROM ACCOUNT WHERE Acc_status='C' ORDER BY Acc_name 
+
+--Display Name of account holder who has a check Book.
+SELECT Acc_name FROM ACCOUNT WHERE Acc_chk_flag=1
+
+--Display information of female account holder.
+SELECT * FROM ACCOUNT WHERE Acc_gender='F'
+
+--Display information of female open before 1999.
+SELECT * FROM ACCOUNT WHERE Acc_op_date<('1-JAN-1999') AND Acc_gender='F'
+
+--Display name of all account holders in upper case.
+SELECT UPPER(Acc_name) FROM ACCOUNT 
+
+--Display name of all account holders in proper case and in descending order of birth date.
+SELECT Acc_name FROM ACCOUNT ORDER BY Acc_dob DESC 
+
+--Display name of account holders who has open his account in ‘January’
+SELECT Acc_name FROM ACCOUNT WHERE TO_CHAR(Acc_op_date,'MON')='JAN'
+
+--Display all information of all current account holder in ascending order of balance.
+SELECT * FROM ACCOUNT WHERE Acc_type='C' ORDER BY Acc_balance
+
+---Display information of account holder whose balance is negative
+SELECT * FROM ACCOUNT WHERE Acc_balance<0
+
+--Display Total Number of Male and Female Account holder
+SELECT Acc_gender,count(Acc_gender) FROM ACCOUNT GROUP BY Acc_gender
+
+--Display Total Current Account
+SELECT Acc_type,count(Acc_type) FROM ACCOUNT WHERE Acc_type='C' 
+GROUP BY Acc_type;
+
+--Display Total Male Current Account
+SELECT Acc_type,count(Acc_type) FROM ACCOUNT WHERE Acc_gender='M' AND 
+Acc_type='C' GROUP BY Acc_type;
+
+--Display Name and Birth year of account holder who has a check book
+SELECT Acc_name,TO_CHAR(Acc_dob,'YYYY') FROM ACCOUNT 
+WHERE Acc_chk_flag=1
+
+--Display Name of account holder and status whose birth in January
+SELECT Acc_name,Acc_status FROM ACCOUNT WHERE TO_CHAR(Acc_dob,'MON')='JAN'
+
+--Display Name of account holder whose balance is less than 50,000.
+SELECT Acc_name FROM ACCOUNT  WHERE Acc_balance<50000
+
+--Display Name of account holder and age as on today.
+SELECT Acc_name, FLOOR(MONTHS_BETWEEN(SYSDATE,Acc_dob)/12) AS AGE FROM ACCOUNT
+
+--Display name information of account holder whose name is started with ‘S’
+SELECT Acc_name FROM ACCOUNT WHERE Acc_name LIKE 'S%' 
+
+--Display information of male current account holder whose age is greater than 25.
+SELECT * FROM ACCOUNT WHERE FLOOR(MONTHS_BETWEEN(SYSDATE,Acc_dob)/12)>25
+
+--Display total number account holder.
+SELECT count(Acc_no) FROM ACCOUNT
+
+--Display the name of account holder whose balance is maximum
+SELECT MAX(Acc_balance)FROM ACCOUNT 
+SELECT MAX(Acc_balance)AS MAX_BALANCE FROM ACCOUNT 
+
+--Display the name of account holder
+SELECT Acc_name FROM ACCOUNT
+
+--Display the name of account holder whose balance is greater than 50,000 and less than 1,00,000
+SELECT Acc_name FROM ACCOUNT  WHERE Acc_balance>50000 AND Acc_balance<100000
+
+--Display close account information.
+SELECT * FROM ACCOUNT WHERE Acc_status='C'
+
+--Display information of account open in December
+SELECT * FROM ACCOUNT WHERE TO_CHAR(Acc_op_date,'MON')='DEC'
+
+--Display Maximum balance amount.
+SELECT MAX(Acc_balance)FROM ACCOUNT 
+
+--Display Minimum balance amount.
+SELECT MIN(Acc_balance)FROM ACCOUNT 
+
+--Display First Three Character of Name
+SELECT SUBSTR(Acc_name,1,3)FROM ACCOUNT
+
+--Display Last three Character of Name
+SELECT SUBSTR(Acc_name,-3)FROM ACCOUNT
+
+--Display the Account holder information whose name is greater the 5 character.
+SELECT Acc_name FROM Account WHERE LENGTH(Acc_name) > 5; 
+
+--Display the Account holder information whose name contain ‘D’ character.
+SELECT * FROM ACCOUNT WHERE ACC_NAME LIKE '%D%'
+
+--Change the name of table account to acc_master.
+ALTER TABLE Account RENAME TO ACC_MASTER;
+
+--Add new column address and city to acc_master table.
+ALTER TABLE ACC_MASTER ADD ADDRESS VARCHAR(50)
+ALTER TABLE ACC_MASTER ADD CITY VARCHAR(50)
